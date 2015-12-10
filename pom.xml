@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.github.K0zka</groupId>
+    <artifactId>kotlin-sonar</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>sonar-plugin</packaging>
+
+    <name>Kotlin SonarQube plugin</name>
+    <description>SonarQube plugin for Kotlin projects</description>
+
+    <scm>
+        <connection>scm:git:https://github.com/K0zka/kotlin-sonar</connection>
+        <developerConnection>scm:git:https://github.com/K0zka/kotlin-sonar</developerConnection>
+        <url>https://github.com/K0zka/kotlin-sonar</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>K0zka</id>
+            <name>Laszlo Hornyak</name>
+            <organization>Myself AG</organization>
+            <url>http://dummywarhead.blogspot.com</url>
+            <email>laszlo dot hogyishivjak at kakukkmail dot com</email>
+            <roles>
+                <role>senior engineer</role>
+                <role>enterprise architect</role>
+                <role>CEO</role>
+                <role>hacker</role>
+                <role>and so on</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/K0zka/kotlin-sonar/issues</url>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <url>https://github.com/K0zka/kotlin-sonar/</url>
+    <properties>
+        <kotlin.version>1.0.0-beta-1103</kotlin.version>
+        <sonar.buildVersion>4.5.2</sonar.buildVersion>
+    </properties>
+    <dependencies>
+
+        <dependency>
+            <groupId>org.codehaus.sonar</groupId>
+            <artifactId>sonar-plugin-api</artifactId>
+            <version>${sonar.buildVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-runtime</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kunit</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <version>${kotlin.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+                <artifactId>sonar-packaging-maven-plugin</artifactId>
+                <version>1.15</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <pluginClass>io.github.K0zka.kotlinsonar.KotlinPlugin</pluginClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- UTF-8 bundles are not supported by Java, so they must be converted during build -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native2ascii-maven-plugin</artifactId>
+                <version>1.0-beta-1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>native2ascii</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
