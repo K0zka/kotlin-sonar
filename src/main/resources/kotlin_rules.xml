@@ -1,0 +1,14 @@
+<rules>
+    <rule>
+        <key>KotlinRule1</key>
+        <name>Kotlin Rule 1</name>
+        <internalKey>KotlinRule1</internalKey>
+        <description>This is an example of rule defined thru the XML.
+        </description>
+        <severity>BLOCKER</severity>
+        <cardinality>SINGLE</cardinality>
+        <status>READY</status>
+        <tag>example</tag>
+        <tag>bug</tag>
+    </rule>
+</rules>
